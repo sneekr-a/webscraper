@@ -31,10 +31,12 @@ int getHTML(const char url[], const char outfilename[]) {
 	}
 
 	//set writefile option
-	//(error checking not necessary)
-	curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+	if ((code = curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp)) != CURLE_OK) {
+		fprintf(stderr, curl_easy_strerror(code));
+		return EXIT_FAILURE;
+	}
 
-	//--perform the curl
+	//--perform the curl and pull html data
 	if ((code = curl_easy_perform(curl)) != CURLE_OK) {
 		fprintf(stderr, curl_easy_strerror(code));
 		return EXIT_FAILURE;
