@@ -1,4 +1,4 @@
-#include "implementation.cpp"
+#include "implementation.h"
 
 int main() {
 	const char url[] = "http://www.example.com/";
