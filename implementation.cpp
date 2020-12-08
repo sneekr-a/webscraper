@@ -1,11 +1,10 @@
 #include "curl/curl.h"
+#include "implementation.h"
 #include <stdio.h>
 #include <string>
 
 
-/*
-Function getHTML takes a string url and writes the HTML code to a string outfilename, which is the name of the output file
-*/
+//^.h, line 8
 int getHTML(const char url[], const char outfilename[]) {
 
 	//--def and init
