@@ -1,11 +1,11 @@
 #include "curl/curl.h"
-#include "implementation.h"
+#include "implementation/implementation.h"
 #include <stdio.h>
 #include <string>
 
 
 //^.h, line 8
-int getHTML(const char url[], const char outfilename[]) {
+int getHTML(const char* url, const char* outfilename) {
 
 	//--def and init
 	CURL* curl = curl_easy_init();
