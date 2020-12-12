@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9lEhBykkHeXy114oWW0Zitw3ptXAfXUxpOlGKBEc1J95UutmOZYae3YDgL4WGGe6j8G/IIVUUQP91oRURqQYyQ==",
+  "success": true,
+  "projectFilePath": "C:\\DEV\\repos\\webscraper\\webscraper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hayde\\.nuget\\packages\\htmlagilitypack\\1.11.28\\htmlagilitypack.1.11.28.nupkg.sha512"
+  ],
+  "logs": []
+}
