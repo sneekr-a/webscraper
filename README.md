@@ -1,4 +1,8 @@
 # webscraper
-my web scraper project that is never going to be finished
 
-now moving to c# because working with c++ on windows is absolute garbage
+todo:
+an actual ui
+offload most of main to scraper class
+add config file--read search term, baseurl, url, nx from scrape.conf
+  -scrape.conf > optional save to file
+  -scrape.conf > additional xpaths to save
