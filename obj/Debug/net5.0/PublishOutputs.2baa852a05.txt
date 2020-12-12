@@ -1,0 +1,6 @@
+C:\DEV\repos\webscraper\bin\Debug\net5.0\publish\webscraper.exe
+C:\DEV\repos\webscraper\bin\Debug\net5.0\publish\webscraper.dll
+C:\DEV\repos\webscraper\bin\Debug\net5.0\publish\webscraper.deps.json
+C:\DEV\repos\webscraper\bin\Debug\net5.0\publish\webscraper.runtimeconfig.json
+C:\DEV\repos\webscraper\bin\Debug\net5.0\publish\webscraper.pdb
+C:\DEV\repos\webscraper\bin\Debug\net5.0\publish\HtmlAgilityPack.dll
