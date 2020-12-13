@@ -50,6 +50,10 @@ namespace WebScraper{
 
                 }
 
+                if(doc.DocumentNode.SelectSingleNode(optionNextxPath) == null){
+                    Console.WriteLine($"optionNextxPath {optionNextxPath} finds no node with href. Terminating.");
+                    nexturl = hosturl;
+                }else{
                     nexturl = optionScheme + "://" + optionHost + doc.DocumentNode.SelectSingleNode(optionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
 
             }
