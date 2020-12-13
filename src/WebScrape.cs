@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using HtmlAgilityPack;
 
@@ -14,7 +15,8 @@ namespace WebScraper{
         public string optionPath;
         public string optionxPath;
         public string optionNextxPath;
-        public string optionSearchTerm;
+        public string optionSearchTerm; /*optional*/
+        public string optionWriteFile; /*optional*/
 
         /*
         member function getQuery returns queryResults
@@ -22,12 +24,12 @@ namespace WebScraper{
         public List<(string, string)> getQuery(){ return queryResults; }
 
         /*
-        member function scrape performs a webscrape and stores items that include optionSearchTerm
+        member function scrape performs a webscrape and stores items that include optionSearchTerm in queryResults
         also returns queryResults
         */
         public List<(string, string)> scrape(){
             
-            if(!AllRequiredOptionsFilled()){ return new List<(string, string)>(){ ("none", "none") }; } /*checks if required options are filled*/
+            if(!allRequiredOptionsFilled()){ return new List<(string, string)>(){ ("none", "none") }; } /*checks if required options are filled*/
 
             queryResults.Clear(); /*clear current queryResults*/
             string hosturl = optionScheme + "://" + optionHost;
@@ -64,13 +66,13 @@ namespace WebScraper{
 
         }
 
-        //!!!Member functions past this point will be listed alphabetically!!!
+        //!!!Member functions and data members past this point will be listed alphabetically!!!
 
         /*
         member function checkAllRequiredOptionsFilled ensures all required options are set (and TODO checks validity)
         returns true if so, throws error and returns false otherwise
         */
-        private bool AllRequiredOptionsFilled(){
+        private bool allRequiredOptionsFilled(){
 
             if(optionScheme == string.Empty){
                 optionScheme = "http";
@@ -90,6 +92,50 @@ namespace WebScraper{
 
             return true;
 
+        }
+
+        private void assignConfig(string optionName, string optionEntry){ /* todo: make work with option subclass*/
+
+            switch(optionName){
+
+                case "optionScheme": optionScheme = optionEntry;
+                break;
+                case "optionHost": optionHost = optionEntry;
+                break;
+                case "optionPath": optionPath = optionEntry;
+                break;
+                case "optionxPath": optionxPath = optionEntry;
+                break;
+                case "optionNextxPath": optionNextxPath = optionEntry;
+                break;
+                case "optionSearchTerm": optionSearchTerm = optionEntry;
+                break;
+                case "optionWriteFile": optionWriteFile = optionEntry;
+                break;
+                default: Console.Error.WriteLine("WebScraper.scraper.assignConfig error: malformed config");
+                break;
+
+            }
+
+        }
+
+        public void generateConfigFile(string filename){ /*todo generate default config file*/
+
+        }
+
+        public int loadConfigFile(string filename){ /*todo make work with assignConfig and option subclass*/
+
+            string setting;
+            var file = new StreamReader(filename);
+
+            while((setting = file.ReadLine()) != null){
+
+                string[] substr = setting.Split('=', 2);
+                assignConfig(substr[0], substr[1]);
+
+            }
+
+            return 0;
         }
 
     }
