@@ -2,7 +2,9 @@
 
 todo:
 an actual ui
-offload most of main to scraper class
-add config file--read search term, baseurl, url, nx from scrape.conf
-  -scrape.conf > optional save to file
-  -scrape.conf > additional xpaths to save
+offload most of main to scraper class (done)
+add config file to read in options
+add options to use a writefile and index-based url stepping for scrape
+add ability to specify multiple xpaths for scrape
+add ability to specify multiple search terms
+change search method to be better
