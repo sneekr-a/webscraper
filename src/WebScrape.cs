@@ -17,32 +17,6 @@ namespace WebScraper{
         public string optionSearchTerm;
 
         /*
-        member function checkAllRequiredOptionsValid ensures all required options are set (and TODO checks validity)
-        returns true if so, throws error and returns false otherwise
-        */
-        private bool AllRequiredOptionsFilled(){
-
-            if(optionScheme == string.Empty){
-                optionScheme = "http";
-            }else if(optionHost == string.Empty){
-                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionHost not set");
-                return false;
-            }else if(optionPath == string.Empty){
-                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionPath not set");
-                return false;
-            }else if(optionxPath == string.Empty){
-                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionxPath not set");
-                return false;
-            }else if(optionNextxPath == string.Empty){
-                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionNextxPath not set");
-                return false;
-            }
-
-            return true;
-
-        }
-
-        /*
         member function getQuery returns queryResults
         */
         public List<(string, string)> getQuery(){ return queryResults; }
@@ -81,6 +55,34 @@ namespace WebScraper{
             }
 
             return queryResults;
+
+        }
+
+        //!!!Member functions past this point will be listed alphabetically!!!
+
+        /*
+        member function checkAllRequiredOptionsValid ensures all required options are set (and TODO checks validity)
+        returns true if so, throws error and returns false otherwise
+        */
+        private bool AllRequiredOptionsFilled(){
+
+            if(optionScheme == string.Empty){
+                optionScheme = "http";
+            }else if(optionHost == string.Empty){
+                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionHost not set");
+                return false;
+            }else if(optionPath == string.Empty){
+                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionPath not set");
+                return false;
+            }else if(optionxPath == string.Empty){
+                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionxPath not set");
+                return false;
+            }else if(optionNextxPath == string.Empty){
+                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionNextxPath not set");
+                return false;
+            }
+
+            return true;
 
         }
 
