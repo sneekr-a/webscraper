@@ -39,6 +39,7 @@ namespace WebScraper{
             while(nexturl != hosturl){
 
                 doc = web.Load(nexturl); /*load document*/
+                Console.WriteLine($"Scraping {nexturl} . . .");
 
                 foreach(var item in doc.DocumentNode.SelectNodes(optionxPath)){
                     
@@ -55,6 +56,7 @@ namespace WebScraper{
                     nexturl = hosturl;
                 }else{
                     nexturl = optionScheme + "://" + optionHost + doc.DocumentNode.SelectSingleNode(optionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
+                }
 
             }
 
@@ -65,7 +67,7 @@ namespace WebScraper{
         //!!!Member functions past this point will be listed alphabetically!!!
 
         /*
-        member function checkAllRequiredOptionsValid ensures all required options are set (and TODO checks validity)
+        member function checkAllRequiredOptionsFilled ensures all required options are set (and TODO checks validity)
         returns true if so, throws error and returns false otherwise
         */
         private bool AllRequiredOptionsFilled(){
