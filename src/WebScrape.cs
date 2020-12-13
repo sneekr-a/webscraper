@@ -10,13 +10,13 @@ namespace WebScraper{
         private List<(string, string)> queryResults = new List<(string, string)>(); /*contains query results (url, item)*/
 
         //all valid options
-        public string optionScheme;
-        public string optionHost;
-        public string optionPath;
-        public string optionxPath;
-        public string optionNextxPath;
-        public string optionSearchTerm; /*optional*/
-        public string optionWriteFile; /*optional*/
+        public string OptionScheme {get; set;}
+        public string OptionHost  {get; set;}
+        public string OptionPath  {get; set;}
+        public string OptionxPath  {get; set;}
+        public string OptionNextxPath  {get; set;}
+        public string OptionSearchTerm  {get; set;}
+        public string OptionWriteFile  {get; set;}
 
         /*
         member function getQuery returns queryResults
@@ -24,7 +24,7 @@ namespace WebScraper{
         public List<(string, string)> getQuery(){ return queryResults; }
 
         /*
-        member function scrape performs a webscrape and stores items that include optionSearchTerm in queryResults
+        member function scrape performs a webscrape and stores items that include OptionSearchTerm in queryResults
         also returns queryResults
         */
         public List<(string, string)> scrape(){
@@ -32,8 +32,8 @@ namespace WebScraper{
             if(!allRequiredOptionsFilled()){ return new List<(string, string)>(){ ("none", "none") }; } /*checks if required options are filled*/
 
             queryResults.Clear(); /*clear current queryResults*/
-            string hosturl = optionScheme + "://" + optionHost;
-            string nexturl = hosturl + optionPath; /*setup url*/
+            string hosturl = OptionScheme + "://" + OptionHost;
+            string nexturl = hosturl + OptionPath; /*setup url*/
 
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc;
@@ -43,9 +43,9 @@ namespace WebScraper{
                 doc = web.Load(nexturl); /*load document*/
                 Console.WriteLine($"Scraping {nexturl} . . .");
 
-                foreach(var item in doc.DocumentNode.SelectNodes(optionxPath)){
+                foreach(var item in doc.DocumentNode.SelectNodes(OptionxPath)){
                     
-                    if(item.InnerText.ToLower().Contains(optionSearchTerm)){
+                    if(item.InnerText.ToLower().Contains(OptionSearchTerm)){
 
                         queryResults.Add((nexturl, item.InnerText)); /*add terms to query*/
 
@@ -53,11 +53,11 @@ namespace WebScraper{
 
                 }
 
-                if(doc.DocumentNode.SelectSingleNode(optionNextxPath) == null){
-                    Console.WriteLine($"optionNextxPath {optionNextxPath} finds no node with href. Terminating.");
+                if(doc.DocumentNode.SelectSingleNode(OptionNextxPath) == null){
+                    Console.WriteLine($"OptionNextxPath {OptionNextxPath} finds no node with href. Terminating.");
                     nexturl = hosturl;
                 }else{
-                    nexturl = optionScheme + "://" + optionHost + doc.DocumentNode.SelectSingleNode(optionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
+                    nexturl = OptionScheme + "://" + OptionHost + doc.DocumentNode.SelectSingleNode(OptionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
                 }
 
             }
@@ -74,19 +74,19 @@ namespace WebScraper{
         */
         private bool allRequiredOptionsFilled(){
 
-            if(optionScheme == string.Empty){
-                optionScheme = "http";
-            }else if(optionHost == string.Empty){
-                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionHost not set");
+            if(OptionScheme == string.Empty){
+                OptionScheme = "http";
+            }else if(OptionHost == string.Empty){
+                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: OptionHost not set");
                 return false;
-            }else if(optionPath == string.Empty){
-                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionPath not set");
+            }else if(OptionPath == string.Empty){
+                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: OptionPath not set");
                 return false;
-            }else if(optionxPath == string.Empty){
-                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionxPath not set");
+            }else if(OptionxPath == string.Empty){
+                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: OptionxPath not set");
                 return false;
-            }else if(optionNextxPath == string.Empty){
-                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionNextxPath not set");
+            }else if(OptionNextxPath == string.Empty){
+                Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: OptionNextxPath not set");
                 return false;
             }
 
@@ -94,23 +94,23 @@ namespace WebScraper{
 
         }
 
-        private void assignConfig(string optionName, string optionEntry){ /* todo: make work with option subclass*/
+        private void assignConfig(string optionName, string optionEntry){ /*untested*/
 
             switch(optionName){
 
-                case "optionScheme": optionScheme = optionEntry;
+                case "OptionScheme": OptionScheme = optionEntry;
                 break;
-                case "optionHost": optionHost = optionEntry;
+                case "OptionHost": OptionHost = optionEntry;
                 break;
-                case "optionPath": optionPath = optionEntry;
+                case "OptionPath": OptionPath = optionEntry;
                 break;
-                case "optionxPath": optionxPath = optionEntry;
+                case "OptionxPath": OptionxPath = optionEntry;
                 break;
-                case "optionNextxPath": optionNextxPath = optionEntry;
+                case "OptionNextxPath": OptionNextxPath = optionEntry;
                 break;
-                case "optionSearchTerm": optionSearchTerm = optionEntry;
+                case "OptionSearchTerm": OptionSearchTerm = optionEntry;
                 break;
-                case "optionWriteFile": optionWriteFile = optionEntry;
+                case "OptionWriteFile": OptionWriteFile = optionEntry;
                 break;
                 default: Console.Error.WriteLine("WebScraper.scraper.assignConfig error: malformed config");
                 break;
@@ -119,14 +119,31 @@ namespace WebScraper{
 
         }
 
-        public void generateConfigFile(string filename){ /*todo generate default config file*/
+        public void generateConfigFile(string filename){ /*untested*/
+
+            using (StreamWriter sw = File.CreateText(filename)){
+
+                sw.WriteLine("OptionScheme=http");
+                sw.WriteLine("OptionHost=www.example.com");
+                sw.WriteLine("OptionPath=/url");
+                sw.WriteLine("OptionxPath=/html/body/div/p");
+                sw.WriteLine("OptionNextxPath=");
+                sw.WriteLine("OptionSearchTerm=");
+                sw.WriteLine("OptionWriteFile=");
+
+            }
 
         }
 
-        public int loadConfigFile(string filename){ /*todo make work with assignConfig and option subclass*/
+        public int loadConfigFile(string filename){ /*untested*/
 
             string setting;
             var file = new StreamReader(filename);
+
+            if(!File.Exists(filename)){
+                generateConfigFile(filename);
+                Console.Error.WriteLine("Webscrape.scraper.loadConfigFile error: file does not exist. generated file");
+            }
 
             while((setting = file.ReadLine()) != null){
 
