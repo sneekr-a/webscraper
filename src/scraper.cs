@@ -12,13 +12,11 @@ namespace Main
             var CraigScraper = new WebScraper.Scraper();
 
             CraigScraper.optionScheme = "https";
-            CraigScraper.optionHost = "boston.craigslist.org";
-            CraigScraper.optionPath = "/d/for-sale/search/sss?sort=date&";
-            CraigScraper.optionxPath = "//a[@class='result-title hdrlnk']";
-            CraigScraper.optionNextxPath = "//a[@class='button next']";
-            CraigScraper.optionSearchTerm = "metal";
-
-            Console.WriteLine(CraigScraper.optionScheme + "://" + CraigScraper.optionHost + CraigScraper.optionPath);
+            CraigScraper.optionHost = "neocities.org";
+            CraigScraper.optionPath = "/browse?page=90";
+            CraigScraper.optionxPath = "/html/body/div/div[2]/ul/li/div[1]/a";
+            CraigScraper.optionNextxPath = "//a[@class='next_page']";
+            CraigScraper.optionSearchTerm = "old";
 
             foreach(var v in CraigScraper.scrape()){
 
