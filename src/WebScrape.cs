@@ -9,7 +9,7 @@ namespace WebScraper{
         private List<(string, string)> queryResults = new List<(string, string)>(); /*contains query results (url, item)*/
 
         //all valid options
-        public string optionScheme = "http";
+        public string optionScheme;
         public string optionHost;
         public string optionPath;
         public string optionxPath;
@@ -22,7 +22,9 @@ namespace WebScraper{
         */
         private bool AllRequiredOptionsFilled(){
 
-            if(optionHost == string.Empty){
+            if(optionScheme == string.Empty){
+                optionScheme = "http";
+            }else if(optionHost == string.Empty){
                 Console.Error.WriteLine("WebScraper.Scraper.checkAllRequiredOptionsFilled error: optionHost not set");
                 return false;
             }else if(optionPath == string.Empty){
@@ -41,8 +43,13 @@ namespace WebScraper{
         }
 
         /*
-        performs a webscrape and stores results in queryResults
-        ensure all required options are set
+        member function getQuery returns queryResults
+        */
+        public List<(string, string)> getQuery(){ return queryResults; }
+
+        /*
+        member function scrape performs a webscrape and stores items that include optionSearchTerm
+        also returns queryResults
         */
         public List<(string, string)> scrape(){
             
