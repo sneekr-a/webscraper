@@ -50,7 +50,7 @@ namespace WebScraper{
 
                 }
 
-                nexturl = optionScheme + "://" + optionHost + doc.DocumentNode.SelectSingleNode(optionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
+                    nexturl = optionScheme + "://" + optionHost + doc.DocumentNode.SelectSingleNode(optionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
 
             }
 
