@@ -18,10 +18,10 @@ namespace Main
             CraigScraper.optionNextxPath = "//a[@class='button next']";
             CraigScraper.optionSearchTerm = "metal";
 
+            Console.WriteLine(CraigScraper.optionScheme + "://" + CraigScraper.optionHost + CraigScraper.optionPath);
+
             foreach(var v in CraigScraper.scrape()){
 
-                //issue reminder -- returning none, none
-                //look at form of url
                 Console.WriteLine(v.Item1 + ", " + v.Item2);
 
             }

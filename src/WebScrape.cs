@@ -46,15 +46,16 @@ namespace WebScraper{
         */
         public List<(string, string)> scrape(){
             
-            if(AllRequiredOptionsFilled()){ return new List<(string, string)>(){ ("none", "none") }; } /*checks if required options are filled*/
+            if(!AllRequiredOptionsFilled()){ return new List<(string, string)>(){ ("none", "none") }; } /*checks if required options are filled*/
 
             queryResults.Clear(); /*clear current queryResults*/
-            string nexturl = optionScheme + optionHost + optionPath; /*setup url*/
+            string hosturl = optionScheme + "://" + optionHost;
+            string nexturl = hosturl + optionPath; /*setup url*/
 
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc;
 
-            while(nexturl != optionHost){
+            while(nexturl != hosturl){
 
                 doc = web.Load(nexturl); /*load document*/
 
@@ -68,7 +69,7 @@ namespace WebScraper{
 
                 }
 
-                nexturl = optionScheme + optionHost + doc.DocumentNode.SelectSingleNode(optionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
+                nexturl = optionScheme + "://" + optionHost + doc.DocumentNode.SelectSingleNode(optionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
 
             }
 
