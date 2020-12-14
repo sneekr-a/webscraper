@@ -21,6 +21,7 @@ namespace WebScraper{
         /*
         member function getQuery returns queryResults
         */
+        //todo: move this to a field/property
         public List<(string, string)> getQuery(){ return queryResults; }
 
         /*
