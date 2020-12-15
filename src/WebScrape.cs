@@ -8,6 +8,9 @@ namespace WebScraper{
     class Scraper{
 
         private List<(string, string)> queryResults = new List<(string, string)>(); /*contains query results (url, item)*/
+        public List<(string, string)> QueryResults {
+            get{return queryResults;}
+        }
 
         //all valid options
         public string OptionScheme {get; set;}
@@ -17,12 +20,6 @@ namespace WebScraper{
         public string OptionNextxPath  {get; set;}
         public string OptionSearchTerm  {get; set;}
         public string OptionWriteFile  {get; set;}
-
-        /*
-        member function getQuery returns queryResults
-        */
-        //todo: move this to a field/property
-        public List<(string, string)> getQuery(){ return queryResults; }
 
         /*
         member function scrape performs a webscrape and stores items that include OptionSearchTerm in queryResults
