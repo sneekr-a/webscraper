@@ -11,12 +11,17 @@ namespace Main
 
             var CraigScraper = new WebScraper.Scraper();
 
+            /*
             CraigScraper.OptionScheme = "https";
             CraigScraper.OptionHost = "neocities.org";
             CraigScraper.OptionPath = "/browse?page=90";
-            CraigScraper.OptionxPath = "/html/body/div/div[2]/ul/li/div[1]/a";
+            CraigScraper.OptionxPath = "//a[@class='result-title hdrlnk']";
             CraigScraper.OptionNextxPath = "//a[@class='next_page']";
-            CraigScraper.OptionSearchTerm = "old";
+            CraigScraper.OptionSearchTerm = "";
+            */
+
+            CraigScraper.loadConfigFile("config.txt");
+            //all options should be loaded in fine now
 
             foreach(var v in CraigScraper.scrape()){
 

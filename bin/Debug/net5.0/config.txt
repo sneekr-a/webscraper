@@ -1,0 +1,6 @@
+OptionScheme=https
+OptionHost=boston.craigslist.org
+OptionPath=/d/free-stuff/search/zip
+OptionxPath=//a[@class='result-title hdrlnk']
+OptionNextxPath=//a[@class='button next']
+OptionSearchTerm=

@@ -7,23 +7,30 @@ namespace WebScraper{
 
     class Scraper{
 
+        /*
+        field queryResults stores query results
+        results are stored from scrape() in a list of tuples
+        item1 will be the url the item was found at
+        item2 will be the complete item
+        */
         private List<(string, string)> queryResults = new List<(string, string)>(); /*contains query results (url, item)*/
         public List<(string, string)> QueryResults {
             get{return queryResults;}
         }
 
-        //all valid options
-        public string OptionScheme {get; set;}
-        public string OptionHost  {get; set;}
-        public string OptionPath  {get; set;}
-        public string OptionxPath  {get; set;}
-        public string OptionNextxPath  {get; set;}
-        public string OptionSearchTerm  {get; set;}
-        public string OptionWriteFile  {get; set;}
+        //all options
+        public string OptionScheme {get; set;} /*required*/
+        public string OptionHost  {get; set;} /*required*/
+        public string OptionPath  {get; set;} /*required*/
+        public string OptionxPath  {get; set;} /*required*/
+        public string OptionNextxPath  {get; set;} /*required (may be changed)*/
+        public string OptionSearchTerm  {get; set;} /*optional*/
+        private string OptionWriteFile  {get; set;} /*todo, do not fill*/
 
         /*
-        member function scrape performs a webscrape and stores items that include OptionSearchTerm in queryResults
-        also returns queryResults
+        member function scrape performs a webscrape
+        all required options must be filled (scheme, host, path, xpath, nextxpath)
+        returns QueryResults and stores query results in QueryResults
         */
         public List<(string, string)> scrape(){
             
@@ -63,8 +70,10 @@ namespace WebScraper{
             return queryResults;
 
         }
-
+        
+        //-------------------------------------------------------------------------------------
         //!!!Member functions and data members past this point will be listed alphabetically!!!
+        //-------------------------------------------------------------------------------------
 
         /*
         member function checkAllRequiredOptionsFilled ensures all required options are set (and TODO checks validity)
@@ -92,7 +101,12 @@ namespace WebScraper{
 
         }
 
-        private void assignConfig(string optionName, string optionEntry){ /*untested*/
+        /*
+        member function assignConfig assigns options based off strings
+        string optionName should be the string name of a valid option
+        string optionEntry should be a valid value for that option
+        */
+        private void assignConfig(string optionName, string optionEntry){
 
             switch(optionName){
 
@@ -108,8 +122,6 @@ namespace WebScraper{
                 break;
                 case "OptionSearchTerm": OptionSearchTerm = optionEntry;
                 break;
-                case "OptionWriteFile": OptionWriteFile = optionEntry;
-                break;
                 default: Console.Error.WriteLine("WebScraper.scraper.assignConfig error: malformed config");
                 break;
 
@@ -117,7 +129,12 @@ namespace WebScraper{
 
         }
 
-        public void generateConfigFile(string filename){ /*untested*/
+        /*
+        member function generateConfigFile generates a config file
+        string filename should be the name of the file generated
+        TODO: allow filepath outside directory with executable
+        */
+        public void generateConfigFile(string filename){
 
             using (StreamWriter sw = File.CreateText(filename)){
 
@@ -133,24 +150,38 @@ namespace WebScraper{
 
         }
 
-        public int loadConfigFile(string filename){ /*untested*/
+        /*
+        member function loadConfigFile loads a config file named "filename"
+        string filename should be the path to the config file
+
+        options should be listed in the config file as follows
+        [OptionVarName]=[OptionSetting]
+        */
+        public void loadConfigFile(string filename){
 
             string setting;
+            string[] substr;
             var file = new StreamReader(filename);
 
             if(!File.Exists(filename)){
                 generateConfigFile(filename);
                 Console.Error.WriteLine("Webscrape.scraper.loadConfigFile error: file does not exist. generated file");
+                return;
             }
 
             while((setting = file.ReadLine()) != null){
 
-                string[] substr = setting.Split('=', 2);
-                assignConfig(substr[0], substr[1]);
+                substr = setting.Split('=', 2);
+                
+                if(substr.Length == 2){
+                    assignConfig(substr[0], substr[1]);
+                }else{
+                    Console.Error.WriteLine("Webscrape.scraper.loadConfigFile error: malformed config line");
+                }
 
             }
 
-            return 0;
+            return;
         }
 
     }
