@@ -12,8 +12,10 @@ namespace WebScraper{
         results are stored from scrape() in a list of tuples
         item1 will be the url the item was found at
         item2 will be the complete item
+
+        queryResults will be initialized to ("none", "none"), or changed to that value following errors.
         */
-        private List<(string, string)> queryResults = new List<(string, string)>(); /*contains query results (url, item)*/
+        private List<(string, string)> queryResults = new List<(string, string)>{ ("none", "none") }; /*contains query results (url, item)*/
         public List<(string, string)> QueryResults {
             get{return queryResults;}
         }
@@ -32,11 +34,16 @@ namespace WebScraper{
         all required options must be filled (scheme, host, path, xpath, nextxpath)
         returns QueryResults and stores query results in QueryResults
         */
-        public List<(string, string)> scrape(){
+        public List<(string, string)> scrape(){ /*checks if required options are filled*/
             
-            if(!allRequiredOptionsFilled()){ return new List<(string, string)>(){ ("none", "none") }; } /*checks if required options are filled*/
+            queryResults.Clear(); /*clear current queryResults*/            
+            if(!allRequiredOptionsFilled()){
 
-            queryResults.Clear(); /*clear current queryResults*/
+                QueryResults.Add( ("none", "none") );
+                return QueryResults;
+
+            }
+
             string hosturl = OptionScheme + "://" + OptionHost;
             string nexturl = hosturl + OptionPath; /*setup url*/
 
@@ -65,6 +72,10 @@ namespace WebScraper{
                     nexturl = OptionScheme + "://" + OptionHost + doc.DocumentNode.SelectSingleNode(OptionNextxPath).GetAttributeValue("href", string.Empty); /*set next url*/
                 }
 
+            }
+
+            if(OptionWriteFile != string.Empty){
+                writeQuery(OptionWriteFile);
             }
 
             return queryResults;
@@ -182,6 +193,22 @@ namespace WebScraper{
             }
 
             return;
+        }
+
+        /*
+        member function writeFile writes the current queryResults to a file
+        string filename should be the name of the file
+        */
+        private void writeQuery(string filename){
+            
+            StreamWriter sw = File.CreateText("query-" + filename + '-' + DateTime.Now + ".txt");
+
+            foreach(var v in queryResults){
+
+                sw.WriteLine($"\"{0}\", \"{1}\"", v.Item1, v.Item2);
+
+            }
+
         }
 
     }
