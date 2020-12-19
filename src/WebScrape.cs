@@ -133,6 +133,8 @@ namespace WebScraper{
                 break;
                 case "OptionSearchTerm": OptionSearchTerm = optionEntry;
                 break;
+                case "OptionWriteFile": OptionWriteFile = optionEntry;
+                break;
                 default: Console.Error.WriteLine("WebScraper.scraper.assignConfig error: malformed config");
                 break;
 
