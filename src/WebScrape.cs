@@ -205,6 +205,8 @@ namespace WebScraper{
             
             StreamWriter sw = File.CreateText("query-" + filename + '-' + DateTime.Now + ".txt");
 
+            sw.WriteLine($"\n----Query {0}----", DateTime.Now);
+
             foreach(var v in queryResults){
 
                 sw.WriteLine($"\"{0}\", \"{1}\"", v.Item1, v.Item2);
