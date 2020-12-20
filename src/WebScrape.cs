@@ -142,6 +142,18 @@ namespace WebScraper{
 
         }
 
+        private void assignConfig(string optionName, bool optionEntry){
+
+            switch(optionName){
+
+                default:    Console.Error.WriteLine("WebScraper.scraper.assignConfig error: malformed config");
+                            Console.Error.WriteLine("TODO: Program should not enter this overloaded function (WebScraper.Scraper.assignConfig(string, bool)");
+                break;
+
+            }
+
+        }
+
         /*
         member function generateConfigFile generates a config file
         string filename should be the name of the file generated
