@@ -199,7 +199,12 @@ namespace WebScraper{
                 substr = setting.Split('=', 2);
                 
                 if(substr.Length == 2){
-                    assignConfig(substr[0], substr[1]);
+                    if(substr[1] != "true" || substr[1] != "false"){
+                        assignConfig(substr[0], substr[1]);
+                    }else{
+                        assignConfig(substr[0], (substr[1] == "true" ? true : false)); // implements bools
+                    }
+                
                 }else{
                     Console.Error.WriteLine("Webscrape.scraper.loadConfigFile error: malformed config line");
                 }
